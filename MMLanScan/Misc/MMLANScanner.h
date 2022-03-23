@@ -67,7 +67,7 @@ MMLanScannerStatus;
  */
 - (void)lanScanProgressPinged:(float)pingedHosts from:(NSInteger)overallHosts;
 
-- (void)lanScanDidFinishPingWithIP:(NSString _Nonnull *)ip delay:(NSTimeInterval)delay;
+- (void)lanScanDidFinishPingWithIP:(NSString * _Nonnull)ip delay:(NSTimeInterval)delay;
 
 @end
 
