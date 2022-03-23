@@ -87,7 +87,8 @@ static const float PING_TIMEOUT = 1;
     
     //Calling the completion block
     if (self.result) {
-        self.result(errorMessage, self.name, [NSDate.date timeIntervalSinceDate:startDate]);
+		NSTimeInterval delay = [NSDate.date timeIntervalSinceDate:startDate];
+        self.result(errorMessage, self.name, delay);
     }
     
     [self finish];
