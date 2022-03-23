@@ -53,6 +53,8 @@ MMLanScannerStatus;
  */
 - (void)lanScanDidFailedToScan;
 
+- (void)lanScanDidFinishPingWithIP:(NSString *)ip delay:(NSTimeInterval);
+
 @optional
 /*!
  @brief This delegate is called each time a new host is pinged

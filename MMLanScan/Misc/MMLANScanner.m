@@ -100,9 +100,11 @@
             }
             //Since the first half of the operation is completed we will update our proggress by 0.5
             weakSelf.currentHost = weakSelf.currentHost + 0.5;
-			if (delay < 1) {
-				weakSelf.delayMapping[ip] = [NSNumber numberWithDouble: delay];
-			}
+			dispatch_async (dispatch_get_main_queue(), ^{
+				if ([weakSelf.delegate respondsToSelector:@selector(lanScanDidFinishPingWithIP:delay:)]) {
+					[weakSelf.delegate lanScanDidFinishPingWithIP:ip delay:delay];
+				}
+			});
         }];
         
         //The Find MAC Address for each operation
