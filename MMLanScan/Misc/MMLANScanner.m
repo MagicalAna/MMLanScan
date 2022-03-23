@@ -94,7 +94,7 @@
     for (NSString *ipStr in self.ipsToPing) {
         
         //The ping operation
-        PingOperation *pingOperation = [[PingOperation alloc]initWithIPToPing:ipStr andCompletionHandler:^(NSError  * _Nullable error, NSString  * _Nonnull ip, , NSTimeInterval delay) {
+        PingOperation *pingOperation = [[PingOperation alloc]initWithIPToPing:ipStr andCompletionHandler:^(NSError  * _Nullable error, NSString  * _Nonnull ip, NSTimeInterval delay) {
             if (!weakSelf) {
                 return;
             }
