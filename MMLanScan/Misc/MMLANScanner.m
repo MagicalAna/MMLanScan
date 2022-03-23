@@ -19,12 +19,12 @@
 @property (nonatomic,strong) NSDictionary *brandDictionary;
 @property (nonatomic,strong) NSOperationQueue *queue;
 @property(nonatomic,assign,readwrite)BOOL isScanning;
+@property (nonatomic,copy) NSMutableDictionary<NSString *, NSNumber *> *delayMapping;
 @end
 
 @implementation MMLANScanner {
     BOOL isFinished;
     BOOL isCancelled;
-	NSMutableDictionary<NSString *, NSNumber *> *delayMapping;
 }
 
 #pragma mark - Initialization method
