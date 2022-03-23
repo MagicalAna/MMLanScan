@@ -19,7 +19,7 @@
 @property (nonatomic,strong) NSDictionary *brandDictionary;
 @property (nonatomic,strong) NSOperationQueue *queue;
 @property(nonatomic,assign,readwrite)BOOL isScanning;
-@property (nonatomic,copy) NSMutableDictionary<NSString *, NSNumber *> *delayMapping;
+@property (nonatomic,strong) NSMutableDictionary<NSString *, NSNumber *> *delayMapping;
 @end
 
 @implementation MMLANScanner {
