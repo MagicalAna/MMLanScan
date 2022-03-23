@@ -16,5 +16,6 @@
 @property (nonatomic,strong) NSString *subnetMask;
 @property (nonatomic,strong) NSString *brand;
 @property (nonatomic,assign) BOOL isLocalDevice;
+@property (nonatomic,assign) NSTimeInterval delay;
 -(NSString*)macAddressLabel;
 @end

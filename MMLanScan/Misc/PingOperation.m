@@ -17,7 +17,7 @@ static const float PING_TIMEOUT = 1;
 @property (nonatomic,strong) NSString *ipStr;
 @property (nonatomic,strong) NSDictionary *brandDictionary;
 @property(nonatomic,strong)SimplePing *simplePing;
-@property (nonatomic, copy) void (^result)(NSError  * _Nullable error, NSString  * _Nonnull ip);
+@property (nonatomic, copy) void (^result)(NSError  * _Nullable error, NSString  * _Nonnull ip, NSTimeInterval delay);
 @end
 
 @interface PingOperation()
@@ -29,9 +29,10 @@ static const float PING_TIMEOUT = 1;
     NSTimer *_keepAliveTimer;
     NSError *errorMessage;
     NSTimer *pingTimer;
+	NSDate *startDate;
 }
 
--(instancetype)initWithIPToPing:(NSString*)ip andCompletionHandler:(nullable void (^)(NSError  * _Nullable error, NSString  * _Nonnull ip))result;{
+-(instancetype)initWithIPToPing:(NSString*)ip andCompletionHandler:(nullable void (^)(NSError  * _Nullable error, NSString  * _Nonnull ip, NSTimeInterval delay))result;{
 
     self = [super init];
     
@@ -86,7 +87,7 @@ static const float PING_TIMEOUT = 1;
     
     //Calling the completion block
     if (self.result) {
-        self.result(errorMessage,self.name);
+        self.result(errorMessage, self.name, [NSDate.date timeIntervalSinceDate:startDate]);
     }
     
     [self finish];
@@ -162,6 +163,7 @@ static const float PING_TIMEOUT = 1;
 - (void)simplePing:(SimplePing *)pinger didSendPacket:(NSData *)packet {
     //This timer will fired pingTimeOut in case the SimplePing don't answer in the specific time
     pingTimer = [NSTimer scheduledTimerWithTimeInterval:PING_TIMEOUT target:self selector:@selector(pingTimeOut:) userInfo:nil repeats:NO];
+	startDate = NSDate.date;
 }
 
 - (void)pingTimeOut:(NSTimer *)timer {

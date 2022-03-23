@@ -87,18 +87,20 @@
 
     //Making a weak reference to self in order to use it from the completionBlocks in operation.
     MMLANScanner * __weak weakSelf = self;
+	
+	NSMutableDictionary<NSString *, NSNumber *> *delayMapping = NSMutableDictionary.dictionary;
     
     //Looping through IPs array and adding the operations to the queue
     for (NSString *ipStr in self.ipsToPing) {
         
         //The ping operation
-        PingOperation *pingOperation = [[PingOperation alloc]initWithIPToPing:ipStr andCompletionHandler:^(NSError  * _Nullable error, NSString  * _Nonnull ip) {
+        PingOperation *pingOperation = [[PingOperation alloc]initWithIPToPing:ipStr andCompletionHandler:^(NSError  * _Nullable error, NSString  * _Nonnull ip, , NSTimeInterval delay) {
             if (!weakSelf) {
                 return;
             }
             //Since the first half of the operation is completed we will update our proggress by 0.5
             weakSelf.currentHost = weakSelf.currentHost + 0.5;
-            
+			delayMapping[ip] = [NSNumber numberWithDouble: delay];
         }];
         
         //The Find MAC Address for each operation
@@ -115,6 +117,7 @@
                 //Letting know the delegate that found a new device (on Main Thread)
                 dispatch_async (dispatch_get_main_queue(), ^{
                     if ([weakSelf.delegate respondsToSelector:@selector(lanScanDidFindNewDevice:)]) {
+						device.delay = NSTimeInterval([delayMapping[ip] doubleValue]);
                         [weakSelf.delegate lanScanDidFindNewDevice:device];
                     }
                 });
