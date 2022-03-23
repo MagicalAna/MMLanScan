@@ -117,7 +117,7 @@
                 //Letting know the delegate that found a new device (on Main Thread)
                 dispatch_async (dispatch_get_main_queue(), ^{
                     if ([weakSelf.delegate respondsToSelector:@selector(lanScanDidFindNewDevice:)]) {
-						device.delay = NSTimeInterval([delayMapping[ip] doubleValue]);
+						device.delay = [delayMapping[ip] doubleValue];
                         [weakSelf.delegate lanScanDidFindNewDevice:device];
                     }
                 });
