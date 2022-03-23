@@ -100,7 +100,9 @@
             }
             //Since the first half of the operation is completed we will update our proggress by 0.5
             weakSelf.currentHost = weakSelf.currentHost + 0.5;
-			delayMapping[ip] = [NSNumber numberWithDouble: delay];
+			if (delay < 1) {
+				delayMapping[ip] = [NSNumber numberWithDouble: delay];
+			}
         }];
         
         //The Find MAC Address for each operation
