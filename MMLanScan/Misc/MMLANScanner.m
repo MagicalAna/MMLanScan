@@ -19,7 +19,6 @@
 @property (nonatomic,strong) NSDictionary *brandDictionary;
 @property (nonatomic,strong) NSOperationQueue *queue;
 @property(nonatomic,assign,readwrite)BOOL isScanning;
-@property (nonatomic,strong) NSMutableDictionary<NSString *, NSNumber *> *delayMapping;
 @end
 
 @implementation MMLANScanner {
@@ -85,8 +84,6 @@
 
     //The counter of how much pings have been made
     self.currentHost=0;
-	
-	self.delayMapping = NSMutableDictionary.dictionary;
     //Making a weak reference to self in order to use it from the completionBlocks in operation.
     MMLANScanner * __weak weakSelf = self;
     
@@ -121,7 +118,6 @@
                 //Letting know the delegate that found a new device (on Main Thread)
                 dispatch_async (dispatch_get_main_queue(), ^{
                     if ([weakSelf.delegate respondsToSelector:@selector(lanScanDidFindNewDevice:)]) {
-						device.delay = [weakSelf.delayMapping[ip] doubleValue];
                         [weakSelf.delegate lanScanDidFindNewDevice:device];
                     }
                 });
