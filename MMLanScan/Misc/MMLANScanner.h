@@ -82,7 +82,7 @@ MMLanScannerStatus;
  self.lanScanner = [[MMLANScanner alloc] initWithDelegate:self];
  @endcode
  */
--(instancetype)initWithDelegate:(id <MMLANScannerDelegate>)delegate;
+-(instancetype)initWithDelegate:(id<MMLANScannerDelegate>)delegate maxConcurrentOperationCount:(NSInteger)count;
 /*!
  @brief A bool property that lets you know when the MMLANScanner is scanning. KVO compliant
  */
