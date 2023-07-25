@@ -91,7 +91,10 @@ static const float PING_TIMEOUT = 1;
         self.result(errorMessage, self.name, delay);
     }
     
-    [self finish];
+    dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC);
+    dispatch_after(timer, dispatch_get_main_queue(), ^{
+        [self finish];
+    });
 }
 
 - (void)timeout:(NSTimer*)timer
